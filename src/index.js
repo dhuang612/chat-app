@@ -1,13 +1,3 @@
-/*
-    Goal: create an express web server
-
-    1. initalize npm and install Express
-    2. Setup a new Express server
-        -Serve up the public directory
-        -Listen on port 3000
-    3. Create index.html and render Chat App to the screen    
-    4. Test your work! start the server and view the page in the browser
-*/
 const path = require('path')
 const express = require('express')
 
