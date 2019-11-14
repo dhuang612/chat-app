@@ -1,20 +1,22 @@
 const path = require('path')
+const http = require('http')
 const express = require('express')
+const socketio = require('socket.io')
 
 const app = express()
+const server = http.createServer(app)
+//pass the server to web socket
+const io = socketio(server)
 
 const port = process.env.PORT || 3000;
 const publicDirectoryPath = path.join(__dirname , '../public/');
 
 app.use(express.static(publicDirectoryPath));
 
-app.get('/', function(req,res) {
-    res.render('index', ({
-        title: 'Chat app',
-        name: 'Dan Huang'
-    }))
+io.on('connection', () => {
+    console.log('New WebSocket connection')
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Server is up on port: ${port}`);
 });
