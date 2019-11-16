@@ -20,7 +20,7 @@ let message = "Welcome!";
 
 io.on('connection', (socket) => {
     console.log('New WebSocket connection')
-    socket.emit('welcome', message)
+    socket.emit('message', 'Welcome!')
     // socket.emit('countUpdated', count)
 
     // socket.on('increment', () => {
@@ -29,8 +29,7 @@ io.on('connection', (socket) => {
     // })
 
     socket.on('sendMessage', (message) => {
-        console.log(message)
-        io.emit('sendMessage', message);
+        io.emit('message', message);
     })
 })
 

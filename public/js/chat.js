@@ -1,6 +1,6 @@
 const socket = io()
 
-socket.on('welcome', (message) => {
+socket.on('message', (message) => {
     console.log(message)
 })
 
@@ -21,8 +21,7 @@ socket.on('welcome', (message) => {
 
 document.querySelector('#form').addEventListener('submit', (e) => {
     e.preventDefault()
-    const sendMessage = e.target.elements.message.value
-    console.log(sendMessage)
+    const message = e.target.elements.message.value
    socket.emit('sendMessage', message)
 })
 
