@@ -13,28 +13,26 @@ const publicDirectoryPath = path.join(__dirname , '../public/');
 
 app.use(express.static(publicDirectoryPath));
 
-// server (emit) => client (receive) - countUpdated
-// client (emit) => server (receive) - increment
- 
-let message = "Welcome!";
 
 io.on('connection', (socket) => {
     console.log('New WebSocket connection')
     socket.emit('message', 'Welcome!')
-    // socket.emit('countUpdated', count)
 
-    // socket.on('increment', () => {
-    //     count++
-    //     io.emit('countUpdated', count)
-    // })
+    socket.broadcast.emit('message', 'A new user has joined!')
+   
 
     socket.on('sendMessage', (message) => {
         io.emit('message', message);
     })
+
+    socket.on("sendLocation", (userLocation)=>{
+        io.emit("message", `https://google.com/maps?q=${userLocation.latitude},${userLocation.longitude}`)
+    })
+
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has left')
+    })
 })
-
-
-
 
 server.listen(port, () => {
     console.log(`Server is up on port: ${port}`);
