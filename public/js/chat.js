@@ -23,10 +23,11 @@ socket.on('message', (message) => {
     $messages.insertAdjacentHTML('beforeend', html)
 })
 
-socket.on('locationMessage', (url) => {
-    console.log(url)
+socket.on('locationMessage', (message) => {
+    console.log(message)
     const html = Mustache.render(locationURL, {
-        url,
+        //switched this from url to message.url
+        url: message.url,
         createdAt: moment(message.createdAt).format("hh:m:ss a")
     })
     $messages.insertAdjacentHTML('beforeend', html)
@@ -61,11 +62,14 @@ $geolocationButton.addEventListener('click', () => {
     //confirm no error
     $geolocationButton.setAttribute('disabled', 'disabled')
     // geolocation api call
-   navigator.geolocation.getCurrentPosition(({coords})=> {
-        const userLocation = {latitude:coords.latitude, longitude: coords.longitude }
-        socket.emit("sendLocation", userLocation, () =>{
+   navigator.geolocation.getCurrentPosition((position)=> {
+       socket.emit("sendLocation", {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+        }, () => {
             $geolocationButton.removeAttribute('disabled')
             console.log('Location shared!')
         })
+      
    })
 })
