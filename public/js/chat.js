@@ -13,6 +13,9 @@ const socket = io()
     const messageTemplate = document.querySelector('#message-template').innerHTML
     const locationURL = document.querySelector('#location-template').innerHTML
 
+    // Options
+   const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true})
+
 // Handles the welcome message
 socket.on('message', (message) => {
     console.log(message)
@@ -73,3 +76,5 @@ $geolocationButton.addEventListener('click', () => {
       
    })
 })
+
+socket.emit('join', {username, room})
