@@ -81,13 +81,6 @@ addUser({
     room: 'Cali'
 })
 
-
-const findUser = getUser(22)
-console.log(findUser)
-
-const findRooms = getUsersInRoom('nyc')
-console.log('results:' ,findRooms)
-
 module.exports = {
     addUser,
     removeUser,
