@@ -1,5 +1,4 @@
 const users = []
-const chatroomUsers = []
 
 const addUser = ({id, username, room}) => {
     // Clean the data
@@ -41,12 +40,7 @@ const getUsersInRoom = (room) => {
     let i = 0
     room = room.trim().toLowerCase()
     const usersInRoom = users.filter((user) => user.room === room)
-    let totalUsers = usersInRoom.length
-    while(i < totalUsers){
-        chatroomUsers.push(usersInRoom[i].username)
-        i++
-    }
-    return chatroomUsers
+    return usersInRoom
 }
 
 

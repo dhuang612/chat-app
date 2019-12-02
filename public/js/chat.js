@@ -7,14 +7,39 @@ const socket = io()
     const $messageFormButton = $messageForm.querySelector('button')
     const $geolocationButton = document.querySelector('#send-location')
     const $messages = document.querySelector('#messages')
-   
+    
 
     // Templates
     const messageTemplate = document.querySelector('#message-template').innerHTML
     const locationURL = document.querySelector('#location-template').innerHTML
+    const sidebarTemplate = document.querySelector('#sidebar-template').innerHTML
 
     // Options
    const {username, room} = Qs.parse(location.search, {ignoreQueryPrefix: true})
+
+   const autoscroll = () => {
+        // New message element 
+        const $newMessage = $messages.lastElementChild
+
+        // Height of the new message + margin bottom
+        const newMessageStyles = getComputedStyle($newMessage)
+        const newMessageMargin = parseInt(newMessageStyles.marginBottom)
+        const newMessageHeight = $newMessage.offsetHeight + newMessageMargin
+
+        // Visible height (viewport)
+        const visibleHeight = $messages.offsetHeight
+
+        // Total height of messages container
+        const containerHeight = $messages.scrollHeight
+
+        // How far have I scrolled?
+        const scrollOffset = $messages.scrollTop + visibleHeight
+
+        if(containerHeight - newMessageHeight <= scrollOffset){
+            // Scroll to the bottom
+            $messages.scrollTop = $messages.scrollHeight
+        }
+   }
 
 // Handles the welcome message
 socket.on('message', (message) => {
@@ -25,6 +50,7 @@ socket.on('message', (message) => {
         createdAt: moment(message.createdAt).format("hh:m:ss a")
     })
     $messages.insertAdjacentHTML('beforeend', html)
+    autoscroll()
 })
 
 socket.on('locationMessage', (message) => {
@@ -36,6 +62,15 @@ socket.on('locationMessage', (message) => {
         createdAt: moment(message.createdAt).format("hh:m:ss a")
     })
     $messages.insertAdjacentHTML('beforeend', html)
+    autoscroll()
+})
+
+socket.on('roomData', ({room, users}) => {
+    const html = Mustache.render(sidebarTemplate, {
+        room,
+        users
+    })
+    document.querySelector('#sidebar').innerHTML = html
 })
 
 // Setup the form and setup socket to send the message 
