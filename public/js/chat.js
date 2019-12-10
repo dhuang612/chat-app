@@ -114,6 +114,7 @@ $geolocationButton.addEventListener('click', () => {
    })
 })
 
+//When a user joins the client side emits a message.
 socket.emit('join', {username, room}, (error)=> {
     
 })

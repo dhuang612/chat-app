@@ -1,0 +1,7 @@
+#left1{
+    width:20%;
+    height:100vh;
+    flex:0 1 auto;
+    border-right:1px solid cyan;
+    overflow-y: scroll;
+}

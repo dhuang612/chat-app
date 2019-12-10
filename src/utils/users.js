@@ -1,4 +1,5 @@
 const users = []
+const rooms = []
 
 const addUser = ({id, username, room}) => {
     // Clean the data
@@ -25,7 +26,21 @@ const addUser = ({id, username, room}) => {
 
     // Store user if no errors
     const user = {id, username, room}
+    const index1 = rooms.findIndex((room) => {
+        return room.room === user.room
+    })
+    if(index1 == -1){
+        r = {room:user.room , users: 0};
+        rooms.push(r)
+    }
     users.push(user)
+
+    const index2 = rooms.findIndex((room)=> {
+        return room.room === user.room;
+    })
+    if(index2 != -1){
+        rooms[index2].users=rooms[index2].users+1;
+    }
     return {user}
 }
 
@@ -37,10 +52,13 @@ const getUser = (id) => {
 }
 
 const getUsersInRoom = (room) => {
-    let i = 0
     room = room.trim().toLowerCase()
     const usersInRoom = users.filter((user) => user.room === room)
     return usersInRoom
+}
+
+const getRooms = () => {
+    return rooms
 }
 
 
@@ -58,26 +76,16 @@ addUser({
 })
 
 addUser({
-    id: 34,
-    username: 'bowlofrice',
-    room: 'NYC'
-})
-
-addUser({
     id: 31,
     username: 'Nick',
     room: 'NYC'
 })
 
-addUser({
-    id: 25,
-    username: 'Test user',
-    room: 'Cali'
-})
 
 module.exports = {
     addUser,
     removeUser,
     getUser,
-    getUsersInRoom
+    getUsersInRoom,
+    getRooms
 }
