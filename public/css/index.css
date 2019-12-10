@@ -1,7 +1,107 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    color: #333333;
+    font-family: Helvetica, Arial, sans-serif;
+}
+
+input {
+    border: 1px solid #eeeeee;
+    padding: 12px;
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+    padding: 12px;
+    background: #7C5CBF;
+    border: none;
+    color: white;
+    font-size: 16px;
+    transition: background .3s ease;
+}
+
+h1 {
+    margin: 10px
+}
+
 #left1{
     width:20%;
     height:100vh;
+    padding-left:5px;
+    position: fixed;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    font-family: Helvetica, Arial, sans-serif;
+    color: #333333;
+    border-right:1px solid #00ace6;
+}
+
+#main1{
+    align-self: center;
+    height:40vh;
     flex:0 1 auto;
-    border-right:1px solid cyan;
-    overflow-y: scroll;
+    /* border:2px solid #7C5CBF; */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Join Page Styles */
+
+.centered-form {
+    background: #333744;
+    width: 100vw;
+    height: 100vh;   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-form__box {
+    box-shadow: 0px 0px 17px 1px #1D1F26;
+    background: #F7F7FA;
+    padding: 24px;
+    width: 250px;
+}
+
+.centered-form button {
+    width: 100%;
+}
+
+.centered-form input {
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.room h1,.room p,.room li{
+    font-size: 10px;
+}
+.room{
+    border-top:2px solid #7C5CBF;
+    border-bottom:2px solid #7C5CBF;
+    background-color: darkgray;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+.room1{
+    border:2px solid #7C5CBF;
+    background-color: darkgray;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+}
+
+ul{
+    list-style-type: none;
 }
